@@ -30,9 +30,11 @@ class MediaController < ApplicationController
       if @medium.save
         format.html { redirect_to @medium, notice: 'Medium was successfully created.' }
         format.json { render :show, status: :created, location: @medium }
+        format.js   { flash.now[:notice] = "Here is my flash notice" } # calls views/media/create.js.erb
       else
         format.html { render :new }
         format.json { render json: @medium.errors, status: :unprocessable_entity }
+        format.js   { }
       end
     end
   end
