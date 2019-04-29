@@ -19,45 +19,32 @@ if (submit) {
  */
 function submitForm(event) {
     event.preventDefault();
-    axios
-        .post('/media', {
-                name: getFormInputValue('medium[name]'),
-                description: getFormInputValue('medium[description]')
-            }
-        )
+
+    axios({
+        method: 'post',
+        url: '/media',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        data: {
+            name: getFormInputValue('medium[name]'),
+            description: getFormInputValue('medium[description]')
+        }
+    })
         .then(function (response) {
             console.log(response);
             // Show notice message
-            renderNotice("Success ...")
+            renderFlash('notice', response.data['notice'])
         })
         .catch(function (error) {
             console.log(error);
             // Show alert message
-            renderAlert(error.toString())
+            renderFlash('alert', error.toString())
         });
 }
 
-/**
- *
- * @param message
- */
-function renderNotice(message) {
-    let el = document.createElement('div');
-    el.setAttribute("id", "notice");
-    el.innerHTML = message;
-    document.body.prepend(el)
-}
-
-/**
- *
- * @param message
- */
-function renderAlert(message) {
-    let el = document.createElement('div');
-    el.setAttribute("id", "alert");
-    el.innerHTML = message;
-    document.body.prepend(el)
-}
+const flash = document.getElementById('flash');
 
 /**
  *
@@ -68,4 +55,26 @@ function getFormInputValue(name) {
     return document.getElementsByName(name) ?
         document.getElementsByName(name)[0].value :
         ""
+}
+
+/**
+ *
+ * @param message
+ */
+function renderFlash(type, message) {
+    if (flash) {
+        emptyNode(flash)
+        let el = document.createElement('div');
+        el.setAttribute("id", type);
+        el.innerHTML = message;
+        flash.appendChild(el)
+    }
+}
+
+
+
+function emptyNode(node) {
+    while (node.firstChild) {
+        node.removeChild(node.firstChild);
+    }
 }
