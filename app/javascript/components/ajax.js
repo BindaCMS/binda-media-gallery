@@ -1,17 +1,26 @@
 import axios from 'axios';
+import docReady from'doc-ready'
 import setupCSRFToken from './setupCSRFToken'
+import { renderFlash } from './flash'
 
-console.log('hello from ajax.js')
-//window.addEventListener('DOMContentLoaded', setupCSRFToken)
-setupCSRFToken();
+let form, submit;
+const recordName = 'medium'
 
-// Hook submit button to ajax
-const form = document.getElementById('medium_form')
-const submit = document.getElementsByName('commit')[0]
+docReady( function() {
+    // set up authorization key
+    setupCSRFToken();
+    // find relevant nodes
+    form = document.forms['medium_form']
+    if (form) {
+        submit = form.elements['commit']
+        if (submit) {
+            // Hook submit button to ajax
+            submit.addEventListener('click', submitForm)
+        }
+    }
 
-if (submit) {
-    submit.addEventListener('click', submitForm)
-}
+    console.log('hello world from ajax.js')
+})
 
 /**
  *
@@ -25,12 +34,11 @@ function submitForm(event) {
         url: '/media',
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+           //'X-Requested-With': 'XMLHttpRequest'
         },
-        data: {
-            name: getFormInputValue('medium[name]'),
-            description: getFormInputValue('medium[description]')
-        }
+        responseType: 'json',
+        data: getFormData(),
     })
         .then(function (response) {
             console.log(response);
@@ -44,37 +52,21 @@ function submitForm(event) {
         });
 }
 
-const flash = document.getElementById('flash');
-
 /**
  *
- * @param name
- * @returns {string}
+ * @param recordName
  */
-function getFormInputValue(name) {
-    return document.getElementsByName(name) ?
-        document.getElementsByName(name)[0].value :
-        ""
-}
-
-/**
- *
- * @param message
- */
-function renderFlash(type, message) {
-    if (flash) {
-        emptyNode(flash)
-        let el = document.createElement('div');
-        el.setAttribute("id", type);
-        el.innerHTML = message;
-        flash.appendChild(el)
-    }
-}
-
-
-
-function emptyNode(node) {
-    while (node.firstChild) {
-        node.removeChild(node.firstChild);
-    }
+function getFormData() {
+    let data = {};
+    data[recordName] = {};
+    [...form.elements].forEach( input => {
+        console.log(input)
+        if (input.type != 'hidden' && input.name.includes(recordName)) {
+            let fieldName = input.name.replace(recordName, "");
+            fieldName = fieldName.replace("[", "");
+            fieldName = fieldName.replace("]", "");
+            data[recordName][fieldName] = input.value
+        }
+    })
+    return data
 }
