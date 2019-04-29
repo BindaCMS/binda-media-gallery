@@ -1,5 +1,3 @@
-import { emptyNode } from './utils'
-
 const flash = document.getElementById('flash');
 
 /**
@@ -14,5 +12,11 @@ export function renderFlash(id, message) {
         el.setAttribute("id", id);
         el.innerHTML = message;
         flash.appendChild(el)
+    }
+}
+
+function emptyNode(node) {
+    while (node.firstChild) {
+        node.removeChild(node.firstChild);
     }
 }
