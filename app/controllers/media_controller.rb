@@ -24,12 +24,12 @@ class MediaController < ApplicationController
   # POST /media
   # POST /media.json
   def create
+    #binding.pry
     @medium = Medium.new(medium_params)
 
     respond_to do |format|
       if @medium.save
         format.html { redirect_to @medium, notice: 'Medium was successfully created.' }
-        #format.json { render :show, status: :created, location: @medium }
         format.json { render json: { notice: "Medium was successfully created" } }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class MediaController < ApplicationController
     respond_to do |format|
       if @medium.update(medium_params)
         format.html { redirect_to @medium, notice: 'Medium was successfully updated.' }
-        format.json { render :show, status: :ok, location: @medium }
+        format.json { render json: { notice: 'Medium was successfully updated'} }
       else
         format.html { render :edit }
         format.json { render json: @medium.errors, status: :unprocessable_entity }
@@ -58,7 +58,7 @@ class MediaController < ApplicationController
     @medium.destroy
     respond_to do |format|
       format.html { redirect_to media_url, notice: 'Medium was successfully destroyed.' }
-      format.json { head :no_content }
+      format.json { render json: { notice: "Medium was successfully destroyed" } }
     end
   end
 

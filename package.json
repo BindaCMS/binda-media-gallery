@@ -3,7 +3,8 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^4.0.2",
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "doc-ready": "^1.0.4"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.3.1"
