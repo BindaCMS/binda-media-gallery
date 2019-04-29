@@ -1,7 +1,7 @@
 // app/javascript/setupCSRFToken.js
 import axios from 'axios'
 
-console.log('hello from setupCSRFToken.js')
+//console.log('hello from setupCSRFToken.js')
 
 export default function() {
     const tokenDom = document.querySelector("meta[name=csrf-token]")
