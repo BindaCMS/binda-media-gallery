@@ -23,6 +23,10 @@ class FormDataExtractor {
         })
         return data
     }
+
+    getAction() {
+        return this.form ? this.form.action : null
+    }
 }
 
 export default FormDataExtractor

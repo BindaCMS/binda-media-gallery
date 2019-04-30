@@ -3,9 +3,10 @@ import { renderFlash } from "./flash";
 
 class AjaxFormCommitter {
 
-    constructor(url, data) {
+    constructor(url, data, httpMethod) {
         this.url = url;
         this.data = data;
+        this.httpMethod = httpMethod;
         this.initHeaders();
     }
 
@@ -17,13 +18,25 @@ class AjaxFormCommitter {
     }
 
     makeCall() {
-        axios.post(this.url, this.data)
+        axios({
+            method: this.httpMethod,
+            url: this.url,
+            data: this.data
+        })
             .then(response => {
                 renderFlash('notice', response.data['notice'])
             })
             .catch(error => {
                 renderFlash('alert', error.toString())
             })
+
+        /*axios.post(this.url, this.data)
+            .then(response => {
+                renderFlash('notice', response.data['notice'])
+            })
+            .catch(error => {
+                renderFlash('alert', error.toString())
+            })*/
     }
 }
 
