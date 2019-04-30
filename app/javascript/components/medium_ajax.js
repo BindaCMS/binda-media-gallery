@@ -2,11 +2,7 @@ import docReady from'doc-ready'
 import AjaxFormCommitter from './AjaxFormCommitter'
 import FormDataExtractor from './FormDataExtractor'
 
-
-docReady ( function() {
-
-    console.log('hello from medium_ajax')
-
+let initializeForm = () => {
     let formExtractor = new FormDataExtractor('medium_form', 'medium');
     // check if it's all good
     if (formExtractor.isValidForm()) {
@@ -30,4 +26,19 @@ docReady ( function() {
             };
         })
     }
+}
+
+docReady (() => {
+    initializeForm();
+    document.addEventListener("DOMContentLoaded", (event) => {
+        if (event.target && event.target.id == 'medium_form') {
+            initializeForm();
+        }
+    });
 })
+
+console.log('hello from medium_ajax')
+
+
+
+export { initializeForm }
