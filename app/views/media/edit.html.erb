@@ -1,8 +1,6 @@
 <h1>Editing Medium</h1>
 
-<%= render 'form', medium: @medium %>
+<%= render 'form', medium: @medium, http_method: 'patch' %>
 
 <%= link_to 'Show', @medium %> |
 <%= link_to 'Back', media_path %>
-
-<%= javascript_pack_tag 'edit_medium_ajax' %>

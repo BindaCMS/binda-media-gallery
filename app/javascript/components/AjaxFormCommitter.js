@@ -3,10 +3,10 @@ import { renderFlash } from "./flash";
 
 class AjaxFormCommitter {
 
-    constructor(url, data, httpMethod) {
-        this.url = url;
-        this.data = data;
-        this.httpMethod = httpMethod;
+    constructor(config) {
+        this.url = config.url ? config.url : null;
+        this.data = config.data ? config.data : null;
+        this.httpMethod = config.httpMethod ? config.httpMethod : 'post';
         this.initHeaders();
     }
 
@@ -18,25 +18,22 @@ class AjaxFormCommitter {
     }
 
     makeCall() {
-        axios({
-            method: this.httpMethod,
-            url: this.url,
-            data: this.data
-        })
-            .then(response => {
-                renderFlash('notice', response.data['notice'])
+        if (this.url && this.data && this.httpMethod) {
+            axios({
+                method: this.httpMethod,
+                url: this.url,
+                data: this.data
             })
-            .catch(error => {
-                renderFlash('alert', error.toString())
-            })
-
-        /*axios.post(this.url, this.data)
-            .then(response => {
-                renderFlash('notice', response.data['notice'])
-            })
-            .catch(error => {
-                renderFlash('alert', error.toString())
-            })*/
+                .then(response => {
+                    renderFlash('notice', response.data['notice'])
+                })
+                .catch(error => {
+                    renderFlash('alert', error.toString())
+                })
+            return true;
+        } else {
+            return false
+        }
     }
 }
 

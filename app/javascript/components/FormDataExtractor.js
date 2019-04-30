@@ -10,6 +10,10 @@ class FormDataExtractor {
         }
     }
 
+    isValidForm() {
+        return this.form && this.submit ? true : false
+    }
+
     getData() {
         let data = {};
         data[this.recordName] = {};
@@ -25,7 +29,11 @@ class FormDataExtractor {
     }
 
     getAction() {
-        return this.form ? this.form.action : null
+        return this.form && this.form.action ? this.form.action : null
+    }
+
+    getHttpMethod() {
+        return this.form && this.form.elements['_method'] ? this.form.elements['_method'].value : null
     }
 }
 
