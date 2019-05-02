@@ -16,6 +16,6 @@
 //  https://github.com/reactjs/react-rails
 //= require react
 //= require react_ujs
-//= require components
+//  require components
 //= require_tree .
 
