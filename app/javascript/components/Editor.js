@@ -7,6 +7,8 @@ import PropsRoute from './PropsRoute';
 import { Switch } from 'react-router-dom';
 import MediumForm from './MediumForm';
 import styled from 'styled-components'
+import { success } from '../helpers/notifications';
+import { handleAjaxError } from '../helpers/helpers';
 
 const StyledContainer = styled.div`
     display: grid;
@@ -32,9 +34,11 @@ class Editor extends React.Component {
     componentDidMount() {
         axios
             .get('/api/media.json')
-            .then(response => this.setState({ media: response.data }))
+            .then(response => {
+                this.setState({ media: response.data })
+            })
             .catch((error) => {
-                console.log(error);
+                handleAjaxError(error);
             });
     }
 
@@ -42,7 +46,7 @@ class Editor extends React.Component {
         axios
             .post('/api/media.json', newMedium)
             .then((response) => {
-                alert('Medium Added!');
+                success('Medium Added!')
                 const savedMedium = response.data;
                 this.setState(prevState => ({
                     events: [...prevState.media, savedMedium],
@@ -51,7 +55,7 @@ class Editor extends React.Component {
                 history.push(`/media/${savedMedium.id}`);
             })
             .catch((error) => {
-                console.log(error);
+                handleAjaxError(error);
             });
     }
 
@@ -62,7 +66,7 @@ class Editor extends React.Component {
                 .delete(`/api/media/${mediumId}.json`)
                 .then((response) => {
                     if (response.status === 204) {
-                        alert('Medium deleted');
+                        success('Medium deleted!')
                         const { history } = this.props;
                         history.push('/media');
 

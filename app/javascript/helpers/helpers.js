@@ -1,3 +1,5 @@
+import { error } from './notifications';
+
 export const isEmptyObject = obj => Object.keys(obj).length === 0;
 
 export const validateMedium = (medium) => {
@@ -7,3 +9,8 @@ export const validateMedium = (medium) => {
     }
     return errors;
 }
+
+export const handleAjaxError = (err) => {
+    error('Something went wrong');
+    console.warn(err);
+};
