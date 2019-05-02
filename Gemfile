@@ -65,3 +65,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # React deps
 gem 'webpacker'
 gem 'react-rails'
+
+# https://stackoverflow.com/a/38915293
+gem 'humanize'

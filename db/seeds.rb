@@ -5,3 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+#
+
+def getManyImages
+  images = []
+  for i in 1..10 do
+    images << {
+        name: "img-#{i}",
+        description: "The #{i.ordinalize} image"
+    }
+  end
+  images
+end
+
+media = Medium.create(getManyImages)
