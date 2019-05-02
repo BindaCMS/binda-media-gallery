@@ -66,5 +66,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'webpacker'
 gem 'react-rails'
 
+# https://hibbard.eu/rails-react-crud-app/
+gem 'responders'
+
 # https://stackoverflow.com/a/38915293
 gem 'humanize'
+
+gem "actionpack", "~> 5.2"
