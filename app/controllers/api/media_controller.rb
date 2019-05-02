@@ -36,7 +36,7 @@ class Api::MediaController < ApplicationController
   private
 
   def medium_params
-    params.require(:event).permit(
+    params.require(:medium).permit(
         :id,
         :name,
         :description,

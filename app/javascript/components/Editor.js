@@ -4,6 +4,8 @@ import Header from './Header';
 import MediumList from "./MediumList";
 import Medium from "./Medium";
 import PropsRoute from './PropsRoute';
+import { Switch } from 'react-router-dom';
+import MediumForm from './MediumForm';
 
 class Editor extends React.Component {
     constructor(props) {
@@ -23,6 +25,24 @@ class Editor extends React.Component {
             });
     }
 
+    addMedium(newMedium) {
+        axios
+            .post('/api/media.json', newMedium)
+            .then((response) => {
+                alert('Medium Added!');
+                const savedMedium = response.data;
+                this.setState(prevState => ({
+                    events: [...prevState.media, savedMedium],
+                }));
+                const { history } = this.props;
+                history.push(`/media/${savedMedium.id}`);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+
     render() {
         const { media } = this.state;
         if (media === null) return null;
@@ -35,7 +55,10 @@ class Editor extends React.Component {
             <div>
                 <Header />
                 <MediumList media={media} activeId={Number(mediumId)}/>
-                <PropsRoute path="/media/:id" component={Medium} medium={medium} />
+                <Switch>
+                    <PropsRoute path="/media/new" component={MediumForm} onSubmit={this.addMedium} />
+                    <PropsRoute path="/media/:id" component={Medium} medium={medium} />
+                </Switch>
             </div>
         );
     }

@@ -20,7 +20,7 @@ class MediumList extends React.Component {
     render() {
         return (
             <section>
-                <h2>Media</h2>
+                <h2>Media <Link to="/media/new">New Media</Link></h2>
                 <ul>{this.renderMedia()}</ul>
             </section>
         );
