@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 
 class MediumList extends React.Component {
     renderMedia() {
-        const { media } = this.props;
+        const { media, activeId } = this.props;
 
         return media.map(medium => (
             <li key={medium.id}>
-                <Link to={`/media/${medium.id}`}>
+                <Link to={`/media/${medium.id}`} className={activeId === medium.id ? 'active' : ''}>
                     {medium.name}
                     {' - '}
                     {medium.description}
@@ -29,10 +29,12 @@ class MediumList extends React.Component {
 
 MediumList.propTypes = {
     media: PropTypes.arrayOf(PropTypes.object),
+    activeId: PropTypes.number
 };
 
 MediumList.defaultProps = {
     media: [],
+    activeId: undefined
 };
 
 export default MediumList;

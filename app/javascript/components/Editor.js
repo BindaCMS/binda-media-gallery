@@ -34,7 +34,7 @@ class Editor extends React.Component {
         return (
             <div>
                 <Header />
-                <MediumList media={media} />
+                <MediumList media={media} activeId={Number(mediumId)}/>
                 <PropsRoute path="/media/:id" component={Medium} medium={medium} />
             </div>
         );
