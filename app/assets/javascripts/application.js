@@ -12,5 +12,10 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
+//  require turbolinks
+//  https://github.com/reactjs/react-rails
+//= require react
+//= require react_ujs
+//= require components
 //= require_tree .
+

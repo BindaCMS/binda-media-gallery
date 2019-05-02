@@ -63,5 +63,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # React deps
-#gem 'webpacker'
-#gem 'react-rails'
+gem 'webpacker'
+gem 'react-rails'
