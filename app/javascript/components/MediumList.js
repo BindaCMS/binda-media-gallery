@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class MediumList extends React.Component {
     renderMedia() {
@@ -7,9 +8,11 @@ class MediumList extends React.Component {
 
         return media.map(medium => (
             <li key={medium.id}>
-                {medium.name}
-                {' - '}
-                {medium.description}
+                <Link to={`/media/${medium.id}`}>
+                    {medium.name}
+                    {' - '}
+                    {medium.description}
+                </Link>
             </li>
         ));
     }

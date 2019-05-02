@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
-  root 'site#index'
+  root to: redirect('/media')
+
+  get 'media', to: 'site#index'
+  get 'media/new', to: 'site#index'
+  get 'media/:id', to: 'site#index'
+  get 'media/:id/edit', to: 'site#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
