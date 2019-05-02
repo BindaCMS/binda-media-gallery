@@ -1,7 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmptyObject, validateMedium } from '../helpers/helpers';
+import styled from 'styled-components'
 
+console.log('hello from mediumform')
+
+const StyledTitle = styled.h2`
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 1em;
+`
+
+const StyledLabel = styled.label`
+  & strong {
+      display: inline-block;
+      vertical-align: top;
+      text-align: right;
+      width: 100px;
+      margin-right: 6px;
+      font-size: 15px;  
+  }
+`
+
+const StyledInput = styled.input`
+      padding: 2px 0 3px 3px;
+      width: 400px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+`
+
+const StyledFormAction = styled.button`
+      color: #236fff;
+      font-size: 15px;
+      margin: 3px 12px 0 12px;
+      text-decoration: none;
+`
+
+const StyledTextArea = styled.textarea`
+      padding: 2px 0 3px 3px;
+      width: 400px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+`
 
 
 class MediumForm extends React.Component {
@@ -9,7 +49,7 @@ class MediumForm extends React.Component {
         super(props);
 
         this.state = {
-            medium: props.medium,
+            medium: props.medium ? props.medium : {},
             errors: {}
         }
 
@@ -24,6 +64,7 @@ class MediumForm extends React.Component {
 
         if (!isEmptyObject(errors)) {
             this.setState({ errors });
+            this.renderErrors();
         } else {
             const { onSubmit } = this.props;
             onSubmit(medium);
@@ -66,31 +107,31 @@ class MediumForm extends React.Component {
     render() {
         return (
             <div>
-                <h2>New Medium</h2>
+                <StyledTitle>New Medium</StyledTitle>
                 <form className="mediumForm" onSubmit={this.handleSubmit}>
                     <div>
-                        <label htmlFor="name">
+                        <StyledLabel htmlFor="name">
                             <strong>Name:</strong>
-                            <input
+                            <StyledInput
                                 type="text"
                                 id="name"
                                 name="name"
                                 onChange={this.handleInputChange}/>
-                        </label>
+                        </StyledLabel>
                     </div>
                     <div>
-                        <label htmlFor="description">
+                        <StyledLabel htmlFor="description">
                             <strong>Description:</strong>
-                            <textarea
+                            <StyledTextArea
                                 cols="30"
-                                rows="10"
+                                rows="5"
                                 id="description"
                                 name="description"
                                 onChange={this.handleInputChange}/>
-                        </label>
+                        </StyledLabel>
                     </div>
-                    <div className="form-actions">
-                        <button type="submit">Save</button>
+                    <div>
+                        <StyledFormAction type="submit">Save</StyledFormAction>
                     </div>
                 </form>
             </div>

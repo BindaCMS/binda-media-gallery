@@ -25,6 +25,8 @@ class Editor extends React.Component {
         this.state = {
             media: null,
         };
+
+        this.deleteMedium = this.deleteMedium.bind(this);
     }
 
     componentDidMount() {
@@ -53,6 +55,27 @@ class Editor extends React.Component {
             });
     }
 
+    deleteMedium(mediumId) {
+        const sure = window.confirm('Are you sure?');
+        if (sure) {
+            axios
+                .delete(`/api/media/${mediumId}.json`)
+                .then((response) => {
+                    if (response.status === 204) {
+                        alert('Medium deleted');
+                        const { history } = this.props;
+                        history.push('/media');
+
+                        const { events } = this.state;
+                        this.setState({ media: media.filter(medium => medium.id !== mediumId) });
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }
+
 
     render() {
         const { media } = this.state;
@@ -68,8 +91,14 @@ class Editor extends React.Component {
                 <StyledContainer>
                     <MediumList media={media} activeId={Number(mediumId)}/>
                     <Switch>
-                        <PropsRoute path="/media/new" component={MediumForm} onSubmit={this.addMedium} />
-                        <PropsRoute path="/media/:id" component={Medium} medium={medium} />
+                        <PropsRoute path="/media/new"
+                                    component={MediumForm}
+                                    medium={medium}
+                                    onSubmit={this.addMedium} />
+                        <PropsRoute path="/media/:id"
+                                    component={Medium}
+                                    medium={medium}
+                                    onDelete={this.deleteMedium}/>
                     </Switch>
                 </StyledContainer>
             </div>

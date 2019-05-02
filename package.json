@@ -10,6 +10,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
+    "react-s-alert": "^1.4.1",
     "react_ujs": "^2.5.0",
     "styled-components": "^4.2.0"
   },

@@ -13,16 +13,21 @@ const StyledTitle = styled.div`
   padding: 0px 6px 10px;
 `
 
-const Medium = ({ medium }) => (
+const Medium = ({ medium, onDelete }) => (
     <StyledContainer>
         <StyledTitle>
             {medium.name}
         </StyledTitle>
         <ul>
             <li>
-                <strong>Description:</strong>
-                {' '}
-                {medium.description}
+                <div>
+                    <strong>Description:</strong>
+                    {' '}
+                    {medium.description}
+                </div>
+                <button className="delete" type="button" onClick={() => onDelete(medium.id)}>
+                    Delete
+                </button>
             </li>
         </ul>
     </StyledContainer>
@@ -30,6 +35,7 @@ const Medium = ({ medium }) => (
 
 Medium.propTypes = {
     medium: PropTypes.shape(),
+    onDelete: PropTypes.func.isRequired,
 };
 
 Medium.defaultProps = {

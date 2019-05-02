@@ -14,9 +14,12 @@ const StyledTitle = styled.h2`
 `
 
 const StyledItem = styled.li`
-   display: block;
-   a { display: block }
-   & a.active, & a:hover {
+    /*  ---------  */
+`
+
+const StyledLink = styled(Link)`
+   display:block;
+   &:hover, &.active {
      background: #f8e5ce;
    }
 `
@@ -27,11 +30,11 @@ class MediumList extends React.Component {
 
         return media.map(medium => (
             <StyledItem key={medium.id}>
-                <Link to={`/media/${medium.id}`} className={activeId === medium.id ? 'active' : ''}>
+                <StyledLink to={`/media/${medium.id}`} className={activeId === medium.id ? 'active' : ''}>
                     {medium.name}
                     {/*' - '*/}
                     {/*medium.description*/}
-                </Link>
+                </StyledLink>
             </StyledItem>
         ));
     }
