@@ -105,6 +105,9 @@ class MediumForm extends React.Component {
     }
 
     render() {
+
+        const { medium } = this.state;
+
         return (
             <div>
                 <StyledTitle>New Medium</StyledTitle>
@@ -116,7 +119,9 @@ class MediumForm extends React.Component {
                                 type="text"
                                 id="name"
                                 name="name"
-                                onChange={this.handleInputChange}/>
+                                onChange={this.handleInputChange}
+                                value={medium.name}
+                            />
                         </StyledLabel>
                     </div>
                     <div>
@@ -127,7 +132,9 @@ class MediumForm extends React.Component {
                                 rows="5"
                                 id="description"
                                 name="description"
-                                onChange={this.handleInputChange}/>
+                                onChange={this.handleInputChange}
+                                value={medium.description}
+                            />
                         </StyledLabel>
                     </div>
                     <div>

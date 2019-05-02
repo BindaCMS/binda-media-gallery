@@ -25,6 +25,7 @@ const StyledLink = styled(Link)`
 `
 
 class MediumList extends React.Component {
+
     renderMedia() {
         const { media, activeId } = this.props;
 

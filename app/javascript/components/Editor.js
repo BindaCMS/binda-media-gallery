@@ -29,6 +29,7 @@ class Editor extends React.Component {
         };
 
         this.deleteMedium = this.deleteMedium.bind(this);
+        this.updateMedium = this.updateMedium.bind(this);
     }
 
     componentDidMount() {
@@ -42,6 +43,11 @@ class Editor extends React.Component {
             });
     }
 
+    componentWillReceiveProps({ medium }) {
+        this.setState({ medium });
+    }
+
+
     addMedium(newMedium) {
         axios
             .post('/api/media.json', newMedium)
@@ -49,7 +55,7 @@ class Editor extends React.Component {
                 success('Medium Added!')
                 const savedMedium = response.data;
                 this.setState(prevState => ({
-                    events: [...prevState.media, savedMedium],
+                    media: [...prevState.media, savedMedium],
                 }));
                 const { history } = this.props;
                 history.push(`/media/${savedMedium.id}`);
@@ -57,6 +63,21 @@ class Editor extends React.Component {
             .catch((error) => {
                 handleAjaxError(error);
             });
+    }
+
+    updateMedium(updatedMedium) {
+        axios
+            .put(`/api/media/${updatedMedium.id}.json`, updatedMedium)
+            .then(() => {
+                success('Medium updated');
+                const { media } = this.state;
+                const idx = media.findIndex(media => media.id === updatedMedium.id);
+                media[idx] = updatedMedium;
+                const { history } = this.props;
+                history.push(`/media/${updatedMedium.id}`);
+                this.setState({ media });
+            })
+            .catch(handleAjaxError);
     }
 
     deleteMedium(mediumId) {
@@ -70,7 +91,7 @@ class Editor extends React.Component {
                         const { history } = this.props;
                         history.push('/media');
 
-                        const { events } = this.state;
+                        const { media } = this.state;
                         this.setState({ media: media.filter(medium => medium.id !== mediumId) });
                     }
                 })
@@ -95,14 +116,25 @@ class Editor extends React.Component {
                 <StyledContainer>
                     <MediumList media={media} activeId={Number(mediumId)}/>
                     <Switch>
-                        <PropsRoute path="/media/new"
-                                    component={MediumForm}
-                                    medium={medium}
-                                    onSubmit={this.addMedium} />
-                        <PropsRoute path="/media/:id"
-                                    component={Medium}
-                                    medium={medium}
-                                    onDelete={this.deleteMedium}/>
+                        <PropsRoute
+                            path="/media/new"
+                            component={MediumForm}
+                            medium={medium}
+                            onSubmit={this.addMedium}
+                        />
+                        <PropsRoute
+                            exact
+                            path="/media/:id/edit"
+                            component={MediumForm}
+                            medium={medium}
+                            onSubmit={this.updateMedium}
+                        />
+                        <PropsRoute
+                            path="/media/:id"
+                            component={Medium}
+                            medium={medium}
+                            onDelete={this.deleteMedium}
+                        />
                     </Switch>
                 </StyledContainer>
             </div>
