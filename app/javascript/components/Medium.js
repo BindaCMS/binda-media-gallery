@@ -1,11 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components'
+
+const StyledContainer = styled.div`
+  font-size: 15px;
+  line-height: 35px;
+  padding: 16px;
+`
+
+const StyledTitle = styled.div`
+  font-size: 20px;
+  padding: 0px 6px 10px;
+`
 
 const Medium = ({ medium }) => (
-    <div>
-        <h2>
+    <StyledContainer>
+        <StyledTitle>
             {medium.name}
-        </h2>
+        </StyledTitle>
         <ul>
             <li>
                 <strong>Description:</strong>
@@ -13,7 +25,7 @@ const Medium = ({ medium }) => (
                 {medium.description}
             </li>
         </ul>
-    </div>
+    </StyledContainer>
 );
 
 Medium.propTypes = {

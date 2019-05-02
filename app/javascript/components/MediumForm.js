@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEmptyObject, validateMedium } from '../helpers/helpers';
+
+
 
 class MediumForm extends React.Component {
     constructor(props) {
@@ -17,27 +20,15 @@ class MediumForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         const { medium } = this.state;
-        const errors = this.validateMedium(medium);
+        const errors = validateMedium(medium);
 
-        if (!this.isEmptyObject(errors)) {
+        if (!isEmptyObject(errors)) {
             this.setState({ errors });
         } else {
             const { onSubmit } = this.props;
             onSubmit(medium);
         }
         console.log('submitted');
-    }
-
-    validateMedium(medium) {
-        const errors = {};
-        if (medium.name === '') {
-            errors.name = 'You must enter a name'
-        }
-        return errors;
-    }
-
-    isEmptyObject(obj) {
-        return Object.keys(obj).length === 0;
     }
 
     handleInputChange(medium) {

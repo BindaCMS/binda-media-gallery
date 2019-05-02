@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+
+@import "reset.scss";
+@import "variables.scss";
+@import "generic.scss";
+
+@import "components/Editor.scss";
+@import "components/Header.scss";
+@import "components/Medium.scss";
+@import "components/MediumList.scss";
+
+

@@ -6,6 +6,17 @@ import Medium from "./Medium";
 import PropsRoute from './PropsRoute';
 import { Switch } from 'react-router-dom';
 import MediumForm from './MediumForm';
+import styled from 'styled-components'
+
+const StyledContainer = styled.div`
+    display: grid;
+    grid-gap: 50px;
+    grid-template-columns: 25% auto;
+    margin: 25px auto;
+    width: 90%;
+    height: calc(100vh - 145px);
+`
+
 
 class Editor extends React.Component {
     constructor(props) {
@@ -54,11 +65,13 @@ class Editor extends React.Component {
         return (
             <div>
                 <Header />
-                <MediumList media={media} activeId={Number(mediumId)}/>
-                <Switch>
-                    <PropsRoute path="/media/new" component={MediumForm} onSubmit={this.addMedium} />
-                    <PropsRoute path="/media/:id" component={Medium} medium={medium} />
-                </Switch>
+                <StyledContainer>
+                    <MediumList media={media} activeId={Number(mediumId)}/>
+                    <Switch>
+                        <PropsRoute path="/media/new" component={MediumForm} onSubmit={this.addMedium} />
+                        <PropsRoute path="/media/:id" component={Medium} medium={medium} />
+                    </Switch>
+                </StyledContainer>
             </div>
         );
     }
