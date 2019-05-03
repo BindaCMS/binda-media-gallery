@@ -17,7 +17,6 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 import App from '../components/App';
 
 console.log('Hello World from Webpacker')
@@ -28,9 +27,7 @@ ReactRailsUJS.useContext(componentRequireContext)// Support component names rela
 
 document.addEventListener('DOMContentLoaded', () => {
     render(
-        <BrowserRouter>
-        <App />
-        </BrowserRouter>,
+        <App />,
         document.querySelector('#root'));
 });
 

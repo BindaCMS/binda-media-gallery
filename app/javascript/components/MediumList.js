@@ -27,11 +27,11 @@ const StyledLink = styled(Link)`
 class MediumList extends React.Component {
 
     renderMedia() {
-        const { media, activeId } = this.props;
+        const { media } = this.props;
 
         return media.map(medium => (
             <StyledItem key={medium.id}>
-                <StyledLink to={`/media/${medium.id}`} className={activeId === medium.id ? 'active' : ''}>
+                <StyledLink to={`/media/${medium.id}`}>
                     {medium.name}
                     {/*' - '*/}
                     {/*medium.description*/}
@@ -52,12 +52,10 @@ class MediumList extends React.Component {
 
 MediumList.propTypes = {
     media: PropTypes.arrayOf(PropTypes.object),
-    activeId: PropTypes.number
 };
 
 MediumList.defaultProps = {
     media: [],
-    activeId: undefined
 };
 
 export default MediumList;
