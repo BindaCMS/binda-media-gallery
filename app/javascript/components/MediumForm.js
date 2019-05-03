@@ -49,7 +49,10 @@ class MediumForm extends React.Component {
         super(props);
 
         this.state = {
-            medium: props.medium ? props.medium : {},
+            medium: props.medium ? props.medium : {
+                name: "",
+                description: ""
+            },
             errors: {}
         }
 
