@@ -6,12 +6,16 @@
     "@rails/webpacker": "^4.0.2",
     "axios": "^0.18.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "babel-polyfill": "^6.26.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-s-alert": "^1.4.1",
     "react_ujs": "^2.5.0",
+    "redux": "^4.0.1",
+    "reselect": "^4.0.0",
     "styled-components": "^4.2.0"
   },
   "devDependencies": {
