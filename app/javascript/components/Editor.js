@@ -77,7 +77,9 @@ class Editor extends React.Component {
                 history.push(`/media/${updatedMedium.id}`);
                 this.setState({ media });
             })
-            .catch(handleAjaxError);
+            .catch((error) => {
+                handleAjaxError(error);
+            });
     }
 
     deleteMedium(mediumId) {
@@ -96,7 +98,7 @@ class Editor extends React.Component {
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
+                    handleAjaxError(error);
                 });
         }
     }

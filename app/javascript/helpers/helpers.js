@@ -11,6 +11,6 @@ export const validateMedium = (medium) => {
 }
 
 export const handleAjaxError = (err) => {
-    error('Something went wrong');
+    error(`Something went wrong: ${err}`);
     console.warn(err);
 };
