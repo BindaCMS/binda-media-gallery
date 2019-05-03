@@ -3,8 +3,10 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import MediumList from "./MediumList";
-import { Route } from 'react-router-dom'
+import { Switch } from 'react-router-dom';
 import Medium from './Medium'
+import Header from './Header'
+import PropsRoute from "./PropsRoute";
 
 const StyledContainer = styled.div`
     display: grid;
@@ -20,14 +22,21 @@ class Editor extends React.Component {
 
     render() {
         return (
+            <div>
+            <Header />
             <StyledContainer>
                 <MediumList media={this.props.media}/>
-                <Route
-                    path="/media/:id"
-                    component={Medium}
-                    //medium={medium}
-                />
+                <Switch>
+                    <PropsRoute
+                        path="/media/:id/edit"
+                        component={Medium}/>
+                    <PropsRoute
+                        exact
+                        path="/media/:id"
+                        component={Medium}/>
+                </Switch>
             </StyledContainer>
+            </div>
         )
     }
 }
