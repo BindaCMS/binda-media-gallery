@@ -1,8 +1,10 @@
 import React from 'react';
-import MediumList from "./MediumList";
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
+import MediumList from "./MediumList";
+import { Route } from 'react-router-dom'
+import Medium from './Medium'
 
 const StyledContainer = styled.div`
     display: grid;
@@ -20,6 +22,11 @@ class Editor extends React.Component {
         return (
             <StyledContainer>
                 <MediumList media={this.props.media}/>
+                <Route
+                    path="/media/:id"
+                    component={Medium}
+                    //medium={medium}
+                />
             </StyledContainer>
         )
     }
@@ -30,6 +37,7 @@ Editor.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) {
+
     return {
         media: state.media
     }

@@ -15,7 +15,7 @@ const StyledTitle = styled.div`
   padding: 0px 6px 10px;
 `
 
-const Medium = ({ medium, onDelete }) => (
+const Medium = ({ medium }) => (
     <StyledContainer>
         <StyledTitle>
             {medium.name}
@@ -27,22 +27,29 @@ const Medium = ({ medium, onDelete }) => (
                     {' '}
                     {medium.description}
                 </div>
-                <Link to={`/media/${medium.id}/edit`}>Edit</Link>
-                <button className="delete" type="button" onClick={() => onDelete(medium.id)}>
-                    Delete
-                </button>
             </li>
         </ul>
     </StyledContainer>
 );
 
 Medium.propTypes = {
-    medium: PropTypes.shape(),
-    onDelete: PropTypes.func.isRequired,
+    medium: PropTypes.object.isRequired,
 };
 
 Medium.defaultProps = {
     medium: undefined,
 };
 
-export default Medium;
+function mapStateToProps(state, ownProps) {
+    let medium = {
+        name: '',
+        description: ''
+    };
+    const mediumId = ownProps.match.params.id;
+    if (state.media.length > 0) {
+        medium = Object.assign({}, state.media.find(medium => medium.id == mediumId))
+    }
+    return {medium: medium};
+}
+
+export default connect(mapStateToProps)(Medium);
