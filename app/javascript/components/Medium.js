@@ -26,7 +26,7 @@ const Medium = ({ medium, onDelete }) => (
                     {' '}
                     {medium.description}
                 </div>
-                <Link to={`/media/${event.id}/edit`}>Edit</Link>
+                <Link to={`/media/${medium.id}/edit`}>Edit</Link>
                 <button className="delete" type="button" onClick={() => onDelete(medium.id)}>
                     Delete
                 </button>
