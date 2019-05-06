@@ -1,9 +1,9 @@
 import { types } from './actionTypes'
 
 export function getMediaAction() {
-    console.log(types.GET_MEDIA_SUCCESS)
+    console.log(types.GET_MEDIA)
     return {
-        type: types.GET_MEDIA_SUCCESS,
+        type: types.GET_MEDIA,
         data: { foo: "bar" }
     }
 }
