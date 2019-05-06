@@ -5,15 +5,6 @@ import rootSaga from './saga/sagas'
 
 const sagaMiddleware = createSagaMiddleware()
 
-const configureStore = () => {
-    return (
-        createStore(
-            rootReducer,
-            //applyMiddleware(sagaMiddleware)
-        )
-    )
-}
+export const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
 
-//sagaMiddleware.run(rootSaga)
-
-export default configureStore
+sagaMiddleware.run(rootSaga)
