@@ -7,6 +7,16 @@ class MediaApi {
                 return error;
             });
     }
+
+    static updateMedium(medium) {
+        const request = new Request(`http://localhost:3000/api/media/${medium.id}`, {
+            method: 'PUT',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({medium: medium})
+        })
+    }
 }
 
 console.log('hello from mediaApi')

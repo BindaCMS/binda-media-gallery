@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmptyObject, validateMedium } from '../helpers/helpers';
 import styled from 'styled-components'
+import TextInput from './common/textInput'
 
 console.log('hello from mediumform')
 
@@ -22,7 +23,7 @@ const StyledLabel = styled.label`
   }
 `
 
-const StyledInput = styled.input`
+const StyledInput = styled(TextInput)`
       padding: 2px 0 3px 3px;
       width: 400px;
       margin-bottom: 15px;
@@ -45,69 +46,35 @@ const StyledTextArea = styled.textarea`
 
 
 class MediumForm extends React.Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            medium: props.medium ? props.medium : {
-                name: "",
-                description: ""
-            },
-            errors: {}
-        }
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-        const { medium } = this.state;
-        const errors = validateMedium(medium);
-
-        if (!isEmptyObject(errors)) {
-            this.setState({ errors });
-            this.renderErrors();
-        } else {
-            const { onSubmit } = this.props;
-            onSubmit(medium);
-        }
-        console.log('submitted');
-    }
-
-    handleInputChange(medium) {
-        const { target } = medium;
-        const { name } = target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-
-        this.setState(prevState => ({
-            medium: {
-                ...prevState.medium,
-                [name]: value,
-            },
-        }));
-    }
-
-    renderErrors() {
-        const { errors } = this.state;
-
-        if (this.isEmptyObject(errors)) {
-            return null;
-        }
-
-        return (
-            <div className="errors">
-                <h3>The following errors prohibited the medium from being saved:</h3>
-                <ul>
-                    {Object.values(errors).map(error => (
-                        <li key={error}>{error}</li>
-                    ))}
-                </ul>
-            </div>
-        );
-    }
 
     render() {
+        return (
+            <div>
+                <StyledTitle>New Medium</StyledTitle>
+                <form>
+                    <TextInput
+                        name="name"
+                        label="name"
+                        placeholder="name"
+                        value={this.props.medium.name}
+                        onChange={this.props.onChange} />
+                    <TextInput
+                        name="description"
+                        label="description"
+                        placeholder="description"
+                        value={this.props.medium.description}
+                        onChange={this.props.onChange} />
+                    <input
+                        type="submit"
+                        disabled={this.props.saving}
+                        onClick={this.props.onSave} />
+                </form>
+            </div>
+        )
+    }
+
+    /*render() {
 
         const { medium } = this.state;
 
@@ -146,12 +113,13 @@ class MediumForm extends React.Component {
                 </form>
             </div>
         );
-    }
+    }*/
 }
 
 MediumForm.propTypes = {
     medium: PropTypes.shape(),
-    onSubmit: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired
 };
 
 export default MediumForm;
