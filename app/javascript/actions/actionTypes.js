@@ -1,1 +1,3 @@
-export const GET_MEDIA_SUCCESS = "GET_MEDIA_SUCCESS";
+export const types = {
+    GET_MEDIA_SUCCESS: "GET_MEDIA_SUCCESS"
+};

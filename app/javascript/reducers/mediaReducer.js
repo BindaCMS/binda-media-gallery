@@ -1,8 +1,8 @@
-import * as actionTypes from '../actions/actionTypes'
+import { types } from '../actions/actionTypes'
 
 export default function mediaReducer(state={}, action) {
     switch(action.type) {
-        case actionTypes.GET_MEDIA_SUCCESS:
+        case types.GET_MEDIA_SUCCESS:
             return {
                 ...state,
                 ...{ media: action.media }
