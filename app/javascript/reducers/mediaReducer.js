@@ -5,7 +5,7 @@ export default function mediaReducer(state={}, action) {
         case types.GET_MEDIA_SUCCESS:
             return {
                 ...state,
-                ...{ media: action.media }
+                ...{ data: action.data }
             }
         default:
             return state

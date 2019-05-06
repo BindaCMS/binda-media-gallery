@@ -28,7 +28,17 @@ class Editor extends React.Component {
         this.props.getMediaAction();
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log(this.props.media)
+    }
+
     render() {
+        return(
+            <div></div>
+        )
+    }
+
+    /*render() {
         return (
             <div>
             <Header />
@@ -46,15 +56,19 @@ class Editor extends React.Component {
             </StyledContainer>
             </div>
         )
-    }
+    }*/
 }
 
 Editor.propTypes = {
     //media: PropTypes.array.isRequired
 }
 
+function mapStateToProps({ media }) {
+    return { media }
+}
+
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ getMediaAction }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(Editor);
+export default connect(mapStateToProps, mapDispatchToProps)(Editor);
