@@ -32,9 +32,37 @@ class Editor extends React.Component {
         console.log(this.props.media)
     }
 
+    renderMedia() {
+        if (this.props.media.payload) {
+            return (
+                <div>Media</div>
+            )
+        }
+    }
+
+    renderTimeout() {
+        if (this.props.media.timeout) {
+            return (
+                <div>Timeout: {this.props.media.timeout}</div>
+            )
+        }
+    }
+
+    renderLoader() {
+        if (this.props.media.isLoading) {
+            return (
+                <div>... Loading ...</div>
+            )
+        }
+    }
+
     render() {
         return(
-            <div></div>
+            <div>
+                {this.renderLoader()}
+                {this.renderTimeout()}
+                {this.renderMedia()}
+            </div>
         )
     }
 
