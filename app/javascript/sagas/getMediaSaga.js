@@ -7,19 +7,20 @@ export function* getMediaWatcher() {
 }
 
 export function* getMediaSaga(action) {
-   const { payload, timeout } = yield race({ payload: request(), timeout: delay(5000)})
+   const { payload, timeout } = yield race({ payload: getMediaRequest(), timeout: delay(1000)})
    if (typeof payload !== "undefined" ) {
         yield put({type: types.GET_MEDIA_SUCCESS, payload})
    } else {
-        yield put({type: types.GET_MEDIA_TIMEOUT, timeout: "getMediaSaga Timeout!"})
+        yield put({type: types.GET_MEDIA_TIMEOUT, timeout: "timeout"})
    }
 }
 
-function request() {
-    return fetch('http://localhost:3000/api/media')
+export function getMediaRequest() {
+    return axios.get('http://localhost:3000/api/media.json')
         .then(response => {
-            return response.json();
-        }).catch(error => {
-            return error;
-        });
+            return response.data
+        })
+        .catch(error => {
+            return error
+        })
 }
