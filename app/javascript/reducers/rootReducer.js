@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux'
-import media from './mediumReducer'
+import {combineReducers} from 'redux';
+import media from './mediaReducer'
 
 const rootReducer = combineReducers({
     media

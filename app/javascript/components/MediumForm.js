@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmptyObject, validateMedium } from '../helpers/helpers';
 import styled from 'styled-components'
 import TextInput from './common/textInput'
 
@@ -73,47 +72,6 @@ class MediumForm extends React.Component {
             </div>
         )
     }
-
-    /*render() {
-
-        const { medium } = this.state;
-
-        return (
-            <div>
-                <StyledTitle>New Medium</StyledTitle>
-                <form className="mediumForm" onSubmit={this.handleSubmit}>
-                    <div>
-                        <StyledLabel htmlFor="name">
-                            <strong>Name:</strong>
-                            <StyledInput
-                                type="text"
-                                id="name"
-                                name="name"
-                                onChange={this.handleInputChange}
-                                value={medium.name}
-                            />
-                        </StyledLabel>
-                    </div>
-                    <div>
-                        <StyledLabel htmlFor="description">
-                            <strong>Description:</strong>
-                            <StyledTextArea
-                                cols="30"
-                                rows="5"
-                                id="description"
-                                name="description"
-                                onChange={this.handleInputChange}
-                                value={medium.description}
-                            />
-                        </StyledLabel>
-                    </div>
-                    <div>
-                        <StyledFormAction type="submit">Save</StyledFormAction>
-                    </div>
-                </form>
-            </div>
-        );
-    }*/
 }
 
 MediumForm.propTypes = {

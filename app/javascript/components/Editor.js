@@ -1,12 +1,16 @@
 import React from 'react';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
+import {bindActionCreators} from 'redux'
 import PropTypes from 'prop-types';
 import MediumList from "./MediumList";
 import { Switch } from 'react-router-dom';
 import Medium from './Medium'
 import Header from './Header'
 import PropsRoute from "./PropsRoute";
+import { getMediaAction } from '../actions/getMediaAction'
+
+
 
 const StyledContainer = styled.div`
     display: grid;
@@ -19,6 +23,10 @@ const StyledContainer = styled.div`
 
 
 class Editor extends React.Component {
+
+    componentDidMount() {
+        this.props.getMediaAction();
+    }
 
     render() {
         return (
@@ -42,14 +50,11 @@ class Editor extends React.Component {
 }
 
 Editor.propTypes = {
-    media: PropTypes.array.isRequired
+    //media: PropTypes.array.isRequired
 }
 
-function mapStateToProps(state, ownProps) {
-
-    return {
-        media: state.media
-    }
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ getMediaAction }, dispatch);
 }
 
-export default connect(mapStateToProps)(Editor);
+export default connect(null, mapDispatchToProps)(Editor);

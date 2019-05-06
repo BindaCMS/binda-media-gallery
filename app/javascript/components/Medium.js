@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux'
-import * as mediumActions from '../actions/mediumActions'
 import MediumForm from './MediumForm'
 
 const StyledContainer = styled.div`
@@ -93,22 +92,4 @@ Medium.defaultProps = {
     medium: undefined,
 };
 
-function mapStateToProps(state, ownProps) {
-    let medium = {
-        name: '',
-        description: ''
-    };
-    const mediumId = ownProps.match.params.id;
-    if (state.media.length > 0) {
-        medium = Object.assign({}, state.media.find(medium => medium.id == mediumId))
-    }
-    return {medium: medium};
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(mediumActions, dispatch)
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Medium);
+export default Medium
