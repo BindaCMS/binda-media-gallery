@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import PropTypes from 'prop-types';
 import MediumList from "./MediumList";
@@ -8,7 +8,7 @@ import { Switch } from 'react-router-dom';
 import Medium from './Medium'
 import Header from './Header'
 import PropsRoute from "./PropsRoute";
-import { getMediaAction } from '../actions/getMediaAction'
+import {getMediaAction} from '../actions/getMediaAction'
 
 
 
@@ -89,6 +89,10 @@ class Editor extends React.Component {
 
 Editor.propTypes = {
     //media: PropTypes.array.isRequired
+}
+
+Editor.defaultProps = {
+    media: []
 }
 
 function mapStateToProps({ media }) {
