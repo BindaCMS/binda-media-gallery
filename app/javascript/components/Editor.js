@@ -32,10 +32,23 @@ class Editor extends React.Component {
         console.log(this.props.media)
     }
 
+    getMediaList() {
+        return (
+            <ul>
+                {[...this.props.media.payload].map(medium => {
+                    return (<li>{medium.name}</li>)
+                })}
+            </ul>
+        )
+    }
+
     renderMedia() {
         if (this.props.media.payload) {
             return (
-                <div>Media</div>
+                <div>
+                    <h1>Media</h1>
+                    {this.getMediaList()}
+                </div>
             )
         }
     }
