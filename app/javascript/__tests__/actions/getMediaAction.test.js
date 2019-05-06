@@ -1,5 +1,5 @@
-import { getMediaAction } from "actions/getMediaAction.js";
-import { types } from "actions/actionTypes";
+import { getMediaAction } from "../../actions/getMediaAction";
+import { types } from "../../actions/actionTypes";
 
 describe("getMediaAction action", () => {
     it("works", () => {
