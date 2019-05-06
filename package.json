@@ -22,8 +22,22 @@
     "styled-components": "^4.2.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.4.4",
     "autoprefixer": "^9.5.1",
+    "babel-jest": "^24.8.0",
+    "jest": "^24.8.0",
+    "react-test-renderer": "^16.8.6",
     "tailwindcss": "^0.7.4",
     "webpack-dev-server": "^3.3.1"
+  },
+  "scripts": {
+    "test": "jest",
+    "test-watch": "jest --watch"
+  },
+  "jest": {
+    "roots": [
+      "test/javascript",
+      "app/javascript/__tests__"
+    ]
   }
 }
