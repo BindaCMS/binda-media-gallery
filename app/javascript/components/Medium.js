@@ -85,11 +85,24 @@ class Medium extends React.Component {
 
 Medium.propTypes = {
     medium: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
 };
 
 Medium.defaultProps = {
     medium: undefined,
 };
 
-export default Medium
+function mapStateToProps(state, ownProps) {
+    let medium = {
+        name: '',
+        description: ''
+    };
+    const mediumId = ownProps.match.params.id;
+    if (state.media.payload) {
+        if (state.media.payload.length > 0) {
+            medium = Object.assign({}, state.media.payload.find(medium => medium.id == mediumId))
+        }
+    }
+    return { medium: medium };
+}
+
+export default connect(mapStateToProps)(Medium);
