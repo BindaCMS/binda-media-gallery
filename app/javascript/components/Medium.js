@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux'
 import MediumForm from './MediumForm'
 import {deleteMediumAction} from "../actions/deleteMediumAction";
 import {addMediumAction} from "../actions/addMediumAction"
+import {editMediumAction} from "../actions/editMediumAction"
 
 const StyledContainer = styled.div`
   font-size: 15px;
@@ -50,7 +51,12 @@ class Medium extends React.Component {
 
     saveMedium(event) {
         event.preventDefault()
-        this.props.updateMedium(this.state.medium)
+        const {medium} = this.state;
+        if (medium.id) {
+            this.props.editMediumAction(medium)
+        } else {
+            this.props.addMediumAction(medium)
+        }
     }
 
     handleDelete(event) {
@@ -118,7 +124,11 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({deleteMediumAction, addMediumAction}, dispatch);
+    return bindActionCreators({
+        deleteMediumAction,
+        addMediumAction,
+        editMediumAction
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Medium);
