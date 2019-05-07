@@ -17,6 +17,20 @@ export const media = function mediaReducer(state={}, action) {
                 ...state,
                 payload: action.payload
             }
+        case types.EDIT_MEDIUM:
+            return {
+                ...state,
+            }
+        case types.EDIT_MEDIUM_SUCCESS:
+            return {
+                ...state,
+                payload: action.payload,
+            }
+        case types.EDIT_MEDIUM_ERROR:
+            return {
+                ...state,
+                payload: action.payload,
+            }
         case types.GET_MEDIA:
             return {
                 ...state,
@@ -48,6 +62,7 @@ export const media = function mediaReducer(state={}, action) {
                 ...state,
                 payload: action.payload
             }
+
         default:
             return state
     }
