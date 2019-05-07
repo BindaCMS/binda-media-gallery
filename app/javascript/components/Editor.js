@@ -10,6 +10,9 @@ import MediumForm from './MediumForm'
 import Header from './Header'
 import PropsRoute from "./PropsRoute";
 import {getMediaAction} from '../actions/getMediaAction'
+import {deleteMediumAction} from "../actions/deleteMediumAction";
+import {addMediumAction} from "../actions/addMediumAction";
+import {editMediumAction} from "../actions/editMediumAction";
 
 
 
@@ -24,6 +27,9 @@ const StyledContainer = styled.div`
 
 
 class Editor extends React.Component {
+    constructor(state) {
+        super(state)
+    }
 
     componentDidMount() {
         this.props.getMediaAction();
@@ -69,12 +75,15 @@ class Editor extends React.Component {
                     {this.renderMedia()}
                     <Switch>
                         <PropsRoute
-                            path={"media/new"}
-                            component={MediumForm}/>
+                            exact
+                            path={"/media/new"}
+                            component={MediumForm}
+                            onSave={this.props.addMediumAction} />
                         <PropsRoute
                             path="/media/:id/edit"
                             component={MediumForm}
-                            media={this.props.media.payload} />
+                            media={this.props.media.payload}
+                            onSave={this.props.editMediumAction} />
                         <PropsRoute
                             exact
                             path="/media/:id"
@@ -84,26 +93,6 @@ class Editor extends React.Component {
             </div>
         )
     }
-
-    /*render() {
-        return (
-            <div>
-            <Header />
-            <StyledContainer>
-                <MediumList media={this.props.media}/>
-                <Switch>
-                    <PropsRoute
-                        path="/media/:id/edit"
-                        component={Medium}/>
-                    <PropsRoute
-                        exact
-                        path="/media/:id"
-                        component={Medium}/>
-                </Switch>
-            </StyledContainer>
-            </div>
-        )
-    }*/
 }
 
 Editor.propTypes = {
@@ -118,8 +107,13 @@ function mapStateToProps({ media }) {
     return { media }
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getMediaAction }, dispatch);
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        getMediaAction,
+        deleteMediumAction,
+        addMediumAction,
+        editMediumAction
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

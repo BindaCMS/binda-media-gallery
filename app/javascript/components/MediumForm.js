@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import TextInput from './common/textInput'
+import {connect} from "react-redux";
 
 console.log('hello from mediumform')
 
@@ -46,6 +47,27 @@ const StyledTextArea = styled.textarea`
 
 class MediumForm extends React.Component {
 
+    constructor(state) {
+        super(state)
+        this.state = {
+            medium: this.props.medium,
+        }
+        this.updateMediumState = this.updateMediumState.bind(this)
+        this.handleSave = this.handleSave.bind(this)
+    }
+
+    updateMediumState() {
+        const field = event.target.name;
+        const medium = this.state.medium;
+        medium[field] = event.target.value;
+        return this.setState({medium:medium})
+    }
+
+    handleSave(event) {
+        event.preventDefault()
+        this.props.onSave()
+    }
+
     render() {
         return (
             <div>
@@ -56,17 +78,17 @@ class MediumForm extends React.Component {
                         label="name"
                         placeholder="name"
                         value={this.props.medium.name}
-                        onChange={this.props.onChange} />
+                        onChange={this.updateMediumState} />
                     <TextInput
                         name="description"
                         label="description"
                         placeholder="description"
                         value={this.props.medium.description}
-                        onChange={this.props.onChange} />
+                        onChange={this.updateMediumState} />
                     <input
                         type="submit"
                         //disabled={this.props.saving}
-                        onClick={this.props.onSave} />
+                        onClick={this.handleSave} />
                 </form>
             </div>
         )
@@ -75,8 +97,29 @@ class MediumForm extends React.Component {
 
 MediumForm.propTypes = {
     medium: PropTypes.shape(),
-    onSave: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired
+    onSave: PropTypes.func.isRequired
 };
 
-export default MediumForm;
+MediumForm.defaultProps = {
+    medium: {
+        name: "",
+        description: ""
+    }
+}
+
+function mapStateToProps(state, ownProps) {
+    let medium = {
+        name: '',
+        description: ''
+    };
+    const mediumId = ownProps.match.params.id;
+    if (state.media.payload) {
+        if (state.media.payload.length > 0) {
+            medium = Object.assign({},
+                state.media.payload.find(medium => medium.id == mediumId))
+        }
+    }
+    return { medium: medium }
+}
+
+export default connect(mapStateToProps)(MediumForm);
