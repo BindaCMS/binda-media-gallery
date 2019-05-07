@@ -33,8 +33,6 @@ class MediumList extends React.Component {
             <StyledItem key={medium.id}>
                 <StyledLink to={`/media/${medium.id}`}>
                     {medium.name}
-                    {/*' - '*/}
-                    {/*medium.description*/}
                 </StyledLink>
             </StyledItem>
         ));

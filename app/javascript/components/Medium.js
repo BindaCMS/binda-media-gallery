@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux'
 import MediumForm from './MediumForm'
+import {deleteMediumAction} from "../actions/deleteMediumAction";
 
 const StyledContainer = styled.div`
   font-size: 15px;
@@ -24,8 +25,9 @@ class Medium extends React.Component {
             isEditing:false
         }
         this.toggleEdit = this.toggleEdit.bind(this);
-        this.updateMediumState = this.updateMediumState.bind(this)
-        this.saveMedium = this.saveMedium.bind(this)
+        this.updateMediumState = this.updateMediumState.bind(this);
+        this.saveMedium = this.saveMedium.bind(this);
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -48,6 +50,13 @@ class Medium extends React.Component {
     saveMedium(event) {
         event.preventDefault()
         this.props.actions.updateMedium(this.state.medium)
+    }
+
+    handleDelete(event) {
+        const { id } = this.state.medium;
+        if (id) {
+            this.props.deleteMediumAction(id);
+        }
     }
 
     render() {
@@ -77,6 +86,7 @@ class Medium extends React.Component {
                         </div>
                     </li>
                 </ul>
+                <button onClick={this.handleDelete}>delete</button>
                 <button onClick={this.toggleEdit}>edit</button>
             </StyledContainer>
         )
@@ -102,7 +112,11 @@ function mapStateToProps(state, ownProps) {
             medium = Object.assign({}, state.media.payload.find(medium => medium.id == mediumId))
         }
     }
-    return { medium: medium };
+    return { medium: medium }
 }
 
-export default connect(mapStateToProps)(Medium);
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({deleteMediumAction}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Medium);

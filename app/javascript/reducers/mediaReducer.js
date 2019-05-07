@@ -19,6 +19,15 @@ export const media = function mediaReducer(state={}, action) {
                 isLoading: false,
                 timeout: action.timeout
             }
+        case types.DELETE_MEDIUM:
+            return {
+                ...state
+            }
+        case types.DELETE_MEDIUM_SUCCESS:
+            return {
+                ...state,
+                payload: action.payload
+            }
         default:
             return state
     }
