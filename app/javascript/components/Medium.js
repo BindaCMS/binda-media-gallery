@@ -50,8 +50,9 @@ class Medium extends React.Component {
     }
 
     saveMedium(event) {
-        event.preventDefault()
-        const {medium} = this.state;
+        event.preventDefault();
+        debugger;
+        const {medium} = this.state
         if (medium.id) {
             this.props.editMediumAction(medium)
         } else {
