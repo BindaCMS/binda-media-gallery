@@ -32,22 +32,11 @@ class Editor extends React.Component {
         console.log(this.props.media)
     }
 
-    getMediaList() {
-        return (
-            <ul>
-                {[...this.props.media.payload].map(medium => {
-                    return (<li>{medium.name}</li>)
-                })}
-            </ul>
-        )
-    }
-
     renderMedia() {
         if (this.props.media.payload) {
             return (
                 <div>
-                    <h1>Media</h1>
-                    {this.getMediaList()}
+                    <MediumList media={this.props.media.payload}/>
                 </div>
             )
         }
@@ -72,9 +61,12 @@ class Editor extends React.Component {
     render() {
         return(
             <div>
-                {this.renderLoader()}
-                {this.renderTimeout()}
-                {this.renderMedia()}
+                <Header />
+                <StyledContainer>
+                    {this.renderLoader()}
+                    {this.renderTimeout()}
+                    {this.renderMedia()}
+                </StyledContainer>
             </div>
         )
     }
