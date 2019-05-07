@@ -28,6 +28,11 @@ export const media = function mediaReducer(state={}, action) {
                 ...state,
                 payload: action.payload
             }
+        case types.DELETE_MEDIUM_ERROR:
+            return {
+                ...state,
+                payload: action.payload
+            }
         default:
             return state
     }
