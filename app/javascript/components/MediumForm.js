@@ -46,7 +46,6 @@ const StyledTextArea = styled.textarea`
 
 class MediumForm extends React.Component {
 
-
     render() {
         return (
             <div>
@@ -66,7 +65,7 @@ class MediumForm extends React.Component {
                         onChange={this.props.onChange} />
                     <input
                         type="submit"
-                        disabled={this.props.saving}
+                        //disabled={this.props.saving}
                         onClick={this.props.onSave} />
                 </form>
             </div>

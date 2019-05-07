@@ -69,6 +69,9 @@ class Editor extends React.Component {
                     {this.renderMedia()}
                     <Switch>
                         <PropsRoute
+                            path={"media/new"}
+                            component={MediumForm}/>
+                        <PropsRoute
                             path="/media/:id/edit"
                             component={MediumForm}
                             media={this.props.media.payload} />

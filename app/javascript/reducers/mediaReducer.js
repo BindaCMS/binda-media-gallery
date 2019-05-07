@@ -2,6 +2,21 @@ import { types } from '../actions/actionTypes'
 
 export const media = function mediaReducer(state={}, action) {
     switch(action.type) {
+
+        case types.ADD_MEDIUM:
+            return {
+                ...state,
+            }
+        case types.ADD_MEDIUM_SUCCESS:
+            return {
+                ...state,
+                payload: action.payload
+            }
+        case types.ADD_MEDIUM_ERROR:
+            return {
+                ...state,
+                payload: action.payload
+            }
         case types.GET_MEDIA:
             return {
                 ...state,
