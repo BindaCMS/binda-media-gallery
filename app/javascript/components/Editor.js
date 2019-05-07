@@ -66,6 +66,12 @@ class Editor extends React.Component {
                     {this.renderLoader()}
                     {this.renderTimeout()}
                     {this.renderMedia()}
+                    <Switch>
+                        <PropsRoute
+                            path="/media/:id"
+                            component={Medium}
+                            media={this.props.media.payload}/>
+                    </Switch>
                 </StyledContainer>
             </div>
         )
