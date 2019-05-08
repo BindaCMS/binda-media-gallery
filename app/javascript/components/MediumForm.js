@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
-import TextInput from './common/textInput'
+import TextInput from './common/TextInput'
 import {connect} from "react-redux";
+import {MyDropzone} from "./common/MyDropzone";
 
 console.log('hello from mediumform')
 
@@ -54,6 +55,7 @@ class MediumForm extends React.Component {
         }
         this.updateMediumState = this.updateMediumState.bind(this)
         this.handleSave = this.handleSave.bind(this)
+        this.handleDropzoneAccept = this.handleDropzoneAccept.bind(this)
     }
 
     updateMediumState() {
@@ -66,6 +68,10 @@ class MediumForm extends React.Component {
     handleSave(event) {
         event.preventDefault()
         this.props.onSave(this.state.medium)
+    }
+
+    handleDropzoneAccept(file) {
+
     }
 
     render() {
@@ -85,6 +91,7 @@ class MediumForm extends React.Component {
                         placeholder="description"
                         value={this.props.medium.description}
                         onChange={this.updateMediumState} />
+                    <MyDropzone onAccepted={this.handleDropzoneAccept}/>
                     <input
                         type="submit"
                         //disabled={this.props.saving}
