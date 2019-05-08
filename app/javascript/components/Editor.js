@@ -14,8 +14,6 @@ import {deleteMediumAction} from "../actions/deleteMediumAction";
 import {addMediumAction} from "../actions/addMediumAction";
 import {editMediumAction} from "../actions/editMediumAction";
 
-
-
 const StyledContainer = styled.div`
     display: grid;
     grid-gap: 50px;
@@ -24,7 +22,6 @@ const StyledContainer = styled.div`
     width: 90%;
     height: calc(100vh - 145px);
 `
-
 
 class Editor extends React.Component {
     constructor(state) {
