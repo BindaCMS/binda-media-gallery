@@ -65,7 +65,7 @@ class MediumForm extends React.Component {
 
     handleSave(event) {
         event.preventDefault()
-        this.props.onSave()
+        this.props.onSave(this.state.medium)
     }
 
     render() {
