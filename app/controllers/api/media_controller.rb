@@ -42,6 +42,7 @@ class Api::MediaController < ApplicationController
         :id,
         :name,
         :description,
+        :file
     )
   end
 end

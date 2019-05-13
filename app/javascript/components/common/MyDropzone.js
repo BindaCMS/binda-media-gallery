@@ -32,13 +32,15 @@ const StyledThumb = styled.div`
 class MyDropzone extends React.Component {
     constructor(state) {
         super(state);
-        this.onDrop = (files) => {
-            this.preventDefault
-            this.setState({files})
-        };
         this.state = {
             files: []
         };
+        this.onDrop = this.onDrop.bind(this)
+    }
+
+    onDrop(files) {
+        this.setState({files})
+        this.props.onChange(this.state)
     }
 
     renderPreview() {
@@ -79,6 +81,10 @@ class MyDropzone extends React.Component {
             </Dropzone>
         );
     }
+}
+
+MyDropzone.defaultProps = {
+    onChange: () => { console.log('Dropzone default onChange function') }
 }
 
 MyDropzone.propTypes = {

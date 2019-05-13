@@ -54,7 +54,17 @@ class MediumForm extends React.Component {
             medium: this.props.medium,
         }
         this.updateMediumState = this.updateMediumState.bind(this)
+        this.updateMediumFile = this.updateMediumFile.bind(this)
         this.handleSave = this.handleSave.bind(this)
+    }
+
+    updateMediumFile({files}) {
+        if (files.length > 0) {
+            let medium = Object.assign({}, this.state.medium);
+            medium['file'] = URL.createObjectURL(files[0]);
+            this.setState({medium:medium})
+            console.log(this.state)
+        }
     }
 
     updateMediumState(event) {
@@ -89,7 +99,7 @@ class MediumForm extends React.Component {
                         value={this.props.medium.description}
                         onChange={this.updateMediumState} />
                     <MyDropzone
-                        onChange={this.updateMediumState}
+                        onChange={this.updateMediumFile}
                     />
                     <input
                         type="submit"

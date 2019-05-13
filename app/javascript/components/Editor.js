@@ -49,7 +49,7 @@ class Editor extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log(this.props)
+        //console.log(this.props)
     }
 
     renderNotice() {
@@ -141,7 +141,6 @@ Editor.defaultProps = {
 }
 
 function mapStateToProps({ media }) {
-    console.log("mapStateToProps",{ media })
     return { media }
 }
 
