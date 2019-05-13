@@ -23,6 +23,17 @@ const StyledContainer = styled.div`
     height: calc(100vh - 145px);
 `
 
+const StyledAlert = styled.div`
+    background: red;
+    color: white;
+`
+
+const StyledNotice = styled.div`
+    background: green;
+    color: white;
+`
+
+
 class Editor extends React.Component {
     constructor(state) {
         super(state)
@@ -34,6 +45,14 @@ class Editor extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         //console.log(this.props.media)
+    }
+
+    renderNotice() {
+        this.props.success ? (<StyledNotice>this.props.success</StyledNotice>) : null
+    }
+
+    renderAlert() {
+        this.props.error ? (<StyledNotice>this.props.error</StyledNotice>) : null
     }
 
     renderMedia() {
@@ -67,6 +86,8 @@ class Editor extends React.Component {
             <div>
                 <Header />
                 <StyledContainer>
+                    {this.renderAlert()}
+                    {this.renderNotice()}
                     {this.renderLoader()}
                     {this.renderTimeout()}
                     {this.renderMedia()}
@@ -100,8 +121,8 @@ Editor.defaultProps = {
     media: []
 }
 
-function mapStateToProps({ media }) {
-    return { media }
+function mapStateToProps({ media, error, success }) {
+    return { media, error, success }
 }
 
 const mapDispatchToProps = (dispatch) => {
