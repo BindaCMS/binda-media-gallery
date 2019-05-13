@@ -48,6 +48,7 @@ class Editor extends React.Component {
     }
 
     renderNotice() {
+        debugger
         this.props.success ? (<StyledNotice>this.props.success</StyledNotice>) : null
     }
 
@@ -122,6 +123,7 @@ Editor.defaultProps = {
 }
 
 function mapStateToProps({ media, error, success }) {
+    console.log("mapStateToProps",{ media, error, success })
     return { media, error, success }
 }
 
