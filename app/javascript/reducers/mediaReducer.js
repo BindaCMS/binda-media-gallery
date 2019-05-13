@@ -10,12 +10,14 @@ export const media = function mediaReducer(state={}, action) {
         case types.ADD_MEDIUM_SUCCESS:
             return {
                 ...state,
-                payload: action.payload
+                payload: action.payload,
+                success: action.success,
             }
         case types.ADD_MEDIUM_ERROR:
             return {
                 ...state,
-                payload: action.payload
+                payload: action.payload,
+                error: action.error
             }
         case types.EDIT_MEDIUM:
             return {
@@ -25,11 +27,13 @@ export const media = function mediaReducer(state={}, action) {
             return {
                 ...state,
                 payload: action.payload,
+                success: action.success
             }
         case types.EDIT_MEDIUM_ERROR:
             return {
                 ...state,
                 payload: action.payload,
+                error: action.error
             }
         case types.GET_MEDIA:
             return {
@@ -55,12 +59,14 @@ export const media = function mediaReducer(state={}, action) {
         case types.DELETE_MEDIUM_SUCCESS:
             return {
                 ...state,
-                payload: action.payload
+                payload: action.payload,
+                success: action.success
             }
         case types.DELETE_MEDIUM_ERROR:
             return {
                 ...state,
-                payload: action.payload
+                payload: action.payload,
+                error: action.error
             }
 
         default:
