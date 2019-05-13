@@ -72,7 +72,9 @@ class MediumForm extends React.Component {
     render() {
         return (
             <div>
-                <StyledTitle>New Medium</StyledTitle>
+                <StyledTitle>
+                    {this.props.medium.id ? "Edit" : "New" } Medium
+                </StyledTitle>
                 <form>
                     <TextInput
                         name="name"
@@ -114,9 +116,9 @@ MediumForm.defaultProps = {
 
 function mapStateToProps(state, ownProps) {
     let medium = {
-        name: '',
-        description: '',
-        file: ''
+        name: "",
+        description: "",
+        file: ""
     };
     const mediumId = ownProps.match.params.id;
     if (state.media.payload) {
