@@ -33,7 +33,7 @@ class Editor extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log(this.props.media)
+        //console.log(this.props.media)
     }
 
     renderMedia() {
