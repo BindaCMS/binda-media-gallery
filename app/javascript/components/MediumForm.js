@@ -115,7 +115,8 @@ MediumForm.defaultProps = {
 function mapStateToProps(state, ownProps) {
     let medium = {
         name: '',
-        description: ''
+        description: '',
+        file: ''
     };
     const mediumId = ownProps.match.params.id;
     if (state.media.payload) {
