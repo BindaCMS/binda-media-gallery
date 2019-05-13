@@ -10,10 +10,11 @@ export function* addMediumSaga(action) {
     console.log(action);
     const payload = yield call(addMediumRequest, action.payload);
     if(typeof payload.id !== "undefined") {
-        yield put({type: types.GET_MEDIA})
+        yield put({type: types.ADD_MEDIUM_SUCCESS, success:payload})
     } else {
-        yield put({type: types.ADD_MEDIUM_ERROR, payload})
+        yield put({type: types.ADD_MEDIUM_ERROR, error:payload})
     }
+    yield put({type: types.GET_MEDIA})
 }
 
 export function addMediumRequest(medium) {

@@ -10,10 +10,11 @@ export function* editMediumSaga(action) {
     console.log(action);
     const payload = yield call(editMediumRequest, action.payload);
     if(typeof payload.id !== "undefined") {
-        yield put({type: types.GET_MEDIA})
+        yield put({type: types.EDIT_MEDIUM_SUCCESS, success:payload})
     } else {
-        yield put({type: types.EDIT_MEDIUM_ERROR, payload})
+        yield put({type: types.EDIT_MEDIUM_ERROR, error:payload})
     }
+    yield put({type: types.GET_MEDIA})
 }
 
 export function editMediumRequest(medium) {

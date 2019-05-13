@@ -7,15 +7,13 @@ export function* deleteMediumWatcher() {
 }
 
 export function* deleteMediumSaga(action) {
-    console.log(action);
     const payload = yield call(deleteMediumRequest, action.payload);
     if(typeof payload.id !== "undefined") {
-        //debugger
-        //yield put({type: types.DELETE_MEDIUM_SUCCESS, payload})
-        yield put({type: types.GET_MEDIA})
+        yield put({type: types.DELETE_MEDIUM_SUCCESS, payload})
     } else {
-        yield put({type: types.DELETE_MEDIUM_ERROR, payload})
+        yield put({type: types.DELETE_MEDIUM_ERROR, error:payload})
     }
+    yield put({type: types.GET_MEDIA})
 }
 
 export function deleteMediumRequest(id) {
