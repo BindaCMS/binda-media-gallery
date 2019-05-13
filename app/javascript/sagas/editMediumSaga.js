@@ -10,7 +10,7 @@ export function* editMediumSaga(action) {
     console.log(action);
     const payload = yield call(editMediumRequest, action.payload);
     if(typeof payload.id !== "undefined") {
-        yield put({type: types.EDIT_MEDIUM_SUCCESS, success:payload})
+        yield put({type: types.EDIT_MEDIUM_SUCCESS, success:`${payload.name} successfully updated`})
     } else {
         yield put({type: types.EDIT_MEDIUM_ERROR, error:payload})
     }
