@@ -53,6 +53,10 @@ class Medium extends React.Component {
                             {' '}
                             {medium.description}
                         </div>
+                        <div>
+                            <strong>File</strong>
+                            {medium.file}
+                        </div>
                     </li>
                 </ul>
                 <button onClick={this.handleDelete}>delete</button>
