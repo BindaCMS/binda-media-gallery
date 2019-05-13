@@ -33,6 +33,11 @@ const StyledNotice = styled.div`
     color: white;
 `
 
+const FlashContainer = styled.div`
+    margin: 10px 5px;
+    p { padding: 0.3em 0.5em; }
+`
+
 
 class Editor extends React.Component {
     constructor(state) {
@@ -44,16 +49,27 @@ class Editor extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        //console.log(this.props.media)
+        console.log(this.props)
     }
 
     renderNotice() {
-        debugger
-        this.props.success ? (<StyledNotice>this.props.success</StyledNotice>) : null
+        if (this.props.media.success) {
+            return (
+                <StyledNotice>
+                    <p>{this.props.media.success}</p>
+                </StyledNotice>
+            )
+        }
     }
 
     renderAlert() {
-        this.props.error ? (<StyledNotice>this.props.error</StyledNotice>) : null
+        if (this.props.media.error) {
+            return (
+                <StyledAlert>
+                    <p>{this.props.media.error}</p>
+                </StyledAlert>
+            )
+        }
     }
 
     renderMedia() {
@@ -86,9 +102,11 @@ class Editor extends React.Component {
         return(
             <div>
                 <Header />
-                <StyledContainer>
+                <FlashContainer>
                     {this.renderAlert()}
                     {this.renderNotice()}
+                </FlashContainer>
+                <StyledContainer>
                     {this.renderLoader()}
                     {this.renderTimeout()}
                     {this.renderMedia()}
@@ -122,9 +140,9 @@ Editor.defaultProps = {
     media: []
 }
 
-function mapStateToProps({ media, error, success }) {
-    console.log("mapStateToProps",{ media, error, success })
-    return { media, error, success }
+function mapStateToProps({ media }) {
+    console.log("mapStateToProps",{ media })
+    return { media }
 }
 
 const mapDispatchToProps = (dispatch) => {
