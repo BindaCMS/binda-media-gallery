@@ -36,7 +36,6 @@ class MediumForm extends React.Component {
     }
 
     handleChange(event) {
-        debugger
         const field = event.target.name;
         const medium = this.state.medium;
         medium[field] = event.target.value;
@@ -49,7 +48,15 @@ class MediumForm extends React.Component {
     }
 
     handleSubmit(event) {
-
+        event.preventDefault()
+        let formData = new FormData();
+        for ( let key in this.state.medium ) {
+            let field = `medium[${key}]`
+            formData.append(field,  this.state.medium[key]);
+            console.log(field, this.state.medium[key])
+        }
+        // pass data to parent function
+        this.props.handleSave(formData)
     }
 
     render() {
