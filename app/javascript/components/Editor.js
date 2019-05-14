@@ -111,11 +111,11 @@ class Editor extends React.Component {
                             exact
                             path={"/media/new"}
                             component={MediumForm}
-                            new={true}
+                            mode="new"
                             handleSave={this.props.addMediumAction} />
                         <PropsRoute
                             path="/media/:id/edit"
-                            new={false}
+                            mode="edit"
                             component={MediumForm}
                             media={this.props.media.payload}
                             handleSave={this.props.editMediumAction} />

@@ -63,7 +63,8 @@ class MediumForm extends React.Component {
         return (
             <div>
                 <StyledTitle>
-                    {this.props.new ? "New" : "Edit" } Medium
+                    {this.props.mode === "edit" ? "Edit" :
+                     this.props.mode === "new" ? "New": ""} Medium
                 </StyledTitle>
                 <form>
                     <TextInput
