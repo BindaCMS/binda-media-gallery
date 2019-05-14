@@ -77,7 +77,6 @@ class MediumForm extends React.Component {
     }
 
     onSubmit(event) {
-        debugger
         event.preventDefault()
         let formData = new FormData();
         for ( let key in this.state.medium ) {
