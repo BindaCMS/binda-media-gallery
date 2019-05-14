@@ -55,28 +55,36 @@ class MediumForm extends React.Component {
         }
         this.updateMediumState = this.updateMediumState.bind(this)
         this.updateMediumFile = this.updateMediumFile.bind(this)
-        this.handleSave = this.handleSave.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
     }
 
     updateMediumFile({files}) {
         if (files.length > 0) {
             let medium = Object.assign({}, this.state.medium);
-            medium['file'] = URL.createObjectURL(files[0]);
-            this.setState({medium:medium})
+            medium['file'] = files[0];
             console.log(this.state)
+            this.setState({medium:medium})
         }
     }
 
     updateMediumState(event) {
+        console.log(event.target)
         const field = event.target.name;
         const medium = this.state.medium;
         medium[field] = event.target.value;
         return this.setState({medium:medium})
+        console.log("state", this.state)
     }
 
-    handleSave(event) {
+    onSubmit(event) {
+        debugger
         event.preventDefault()
-        this.props.onSave(this.state.medium)
+        let formData = new FormData();
+        for ( let key in this.state.medium ) {
+            let field = `medium[${key}]`
+            formData.append(field,  this.state.medium[key]);
+        }
+        this.props.handleSave(formData)
     }
 
     render() {
@@ -104,7 +112,7 @@ class MediumForm extends React.Component {
                     <input
                         type="submit"
                         //disabled={this.props.saving}
-                        onClick={this.handleSave} />
+                        onClick={this.onSubmit} />
                 </form>
             </div>
         )
@@ -113,7 +121,7 @@ class MediumForm extends React.Component {
 
 MediumForm.propTypes = {
     medium: PropTypes.shape(),
-    onSave: PropTypes.func.isRequired
+    handleSave: PropTypes.func.isRequired
 };
 
 MediumForm.defaultProps = {
