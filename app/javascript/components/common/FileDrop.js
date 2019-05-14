@@ -29,7 +29,7 @@ const StyledThumb = styled.div`
     img { width:100%; height: 100%; }
 `
 
-class MyDropzone extends React.Component {
+class FileDrop extends React.Component {
     constructor(state) {
         super(state);
         this.state = {
@@ -40,7 +40,7 @@ class MyDropzone extends React.Component {
 
     onDrop(files) {
         this.setState({files})
-        this.props.onChange(this.state)
+        this.props.handleDrop(this.state)
     }
 
     renderPreview() {
@@ -68,7 +68,7 @@ class MyDropzone extends React.Component {
                                 {...getInputProps({
                                     onChange: this.props.onChange,
                                     multiple: false,
-                                    name: 'file'
+                                    name: this.props.name
                                 })}
                             />
                             <p>Drag 'n' drop or click to choose a file</p>
@@ -83,12 +83,12 @@ class MyDropzone extends React.Component {
     }
 }
 
-MyDropzone.defaultProps = {
-    onChange: () => { console.log('Dropzone default onChange function') }
+FileDrop.defaultProps = {
+    handleDrop: () => { console.log('Dropzone default onChange function') }
 }
 
-MyDropzone.propTypes = {
-    onChange: PropTypes.func.isRequired,
+FileDrop.propTypes = {
+    handleDrop: PropTypes.func.isRequired,
 }
 
-export default MyDropzone
+export default FileDrop

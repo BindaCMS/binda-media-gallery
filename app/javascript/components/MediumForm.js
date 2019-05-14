@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import TextInput from './common/TextInput'
-import {connect} from "react-redux";
-import MyDropzone from "./common/MyDropzone";
-
-console.log('hello from mediumform')
+import FileDrop from './common/FileDrop';
+import {connect} from 'react-redux';
+import {DirectUpload} from 'activestorage'
 
 const StyledTitle = styled.h2`
     font-size: 20px;
@@ -13,39 +12,9 @@ const StyledTitle = styled.h2`
     margin-bottom: 1em;
 `
 
-const StyledLabel = styled.label`
-  & strong {
-      display: inline-block;
-      vertical-align: top;
-      text-align: right;
-      width: 100px;
-      margin-right: 6px;
-      font-size: 15px;  
-  }
-`
-
-const StyledInput = styled(TextInput)`
-      padding: 2px 0 3px 3px;
-      width: 400px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-`
-
-const StyledFormAction = styled.button`
-      color: #236fff;
-      font-size: 15px;
-      margin: 3px 12px 0 12px;
-      text-decoration: none;
-`
-
-const StyledTextArea = styled.textarea`
-      padding: 2px 0 3px 3px;
-      width: 400px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-`
-
-
+/**
+ *
+ */
 class MediumForm extends React.Component {
 
     constructor(state) {
@@ -53,65 +22,64 @@ class MediumForm extends React.Component {
         this.state = {
             medium: this.props.medium,
         }
-        this.updateMediumState = this.updateMediumState.bind(this)
-        this.updateMediumFile = this.updateMediumFile.bind(this)
-        this.onSubmit = this.onSubmit.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDrop = this.handleDrop.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        // refs
+        this.fileInputRef = React.createRef();
     }
 
-    updateMediumFile({files}) {
-        if (files.length > 0) {
-            let medium = Object.assign({}, this.state.medium);
-            medium['file'] = files[0];
-            console.log(this.state)
-            this.setState({medium:medium})
-        }
+    handleDrop(event) {
+        event.preventDefault();
+        const files = event.dataTransfer.files;
+        Array.from(files).forEach(file => this.uploadFile(file))
     }
 
-    updateMediumState(event) {
-        console.log(event.target)
+    handleChange(event) {
+        debugger
         const field = event.target.name;
         const medium = this.state.medium;
         medium[field] = event.target.value;
+        console.log(medium[field]); // todo remove
         return this.setState({medium:medium})
-        console.log("state", this.state)
     }
 
-    onSubmit(event) {
-        event.preventDefault()
-        let formData = new FormData();
-        for ( let key in this.state.medium ) {
-            let field = `medium[${key}]`
-            formData.append(field,  this.state.medium[key]);
-        }
-        this.props.handleSave(formData)
+    uploadFile(file) {
+
+    }
+
+    handleSubmit(event) {
+
     }
 
     render() {
         return (
             <div>
                 <StyledTitle>
-                    {this.props.medium.id ? "Edit" : "New" } Medium
+                    {this.props.new ? "New" : "Edit" } Medium
                 </StyledTitle>
                 <form>
                     <TextInput
                         name="name"
                         label="name"
                         placeholder="name"
-                        value={this.props.medium.name}
-                        onChange={this.updateMediumState} />
+                        value={this.state.medium.name}
+                        onChange={this.handleChange} />
                     <TextInput
                         name="description"
                         label="description"
                         placeholder="description"
-                        value={this.props.medium.description}
-                        onChange={this.updateMediumState} />
-                    <MyDropzone
-                        onChange={this.updateMediumFile}
+                        value={this.state.medium.description}
+                        onChange={this.handleChange} />
+                    <FileDrop
+                        ref={this.fileInputRef}
+                        handleDrop={this.handleDrop}
+                        name="file"
                     />
                     <input
                         type="submit"
                         //disabled={this.props.saving}
-                        onClick={this.onSubmit} />
+                        onClick={this.handleSubmit} />
                 </form>
             </div>
         )
@@ -123,19 +91,10 @@ MediumForm.propTypes = {
     handleSave: PropTypes.func.isRequired
 };
 
-MediumForm.defaultProps = {
-    medium: {
-        name: "",
-        description: "",
-        file: ""
-    }
-}
-
 function mapStateToProps(state, ownProps) {
     let medium = {
         name: "",
         description: "",
-        file: ""
     };
     const mediumId = ownProps.match.params.id;
     if (state.media.payload) {

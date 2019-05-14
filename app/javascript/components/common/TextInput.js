@@ -1,25 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 
-const TextInput = ({name, label, onChange, placeholder, value}) => {
-    return (
-        <div>
-            <label htmlFor={name}>{label}</label>
-            <input
-                type = "text"
-                name = {name}
-                placeholder={placeholder}
-                value={value}
-                onChange={onChange} />
-        </div>
-    )
-}
+const TextInput = React.forwardRef((props, ref) => (
+    <div>
+        <label htmlFor={props.name}>{props.label}</label>
+        <input
+            type = "text"
+            name = {props.name}
+            placeholder={props.placeholder}
+            value={props.value}
+            onChange={props.onChange} />
+    </div>
+))
 
 TextInput.defaultProps = {
     name: "",
     placeholder: "",
     value: "",
-    onChange: () => {}
 }
 
 TextInput.propTypes = {
