@@ -7,6 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 #
 
+ def sample_file(filename = "test.jpg")
+   File.open(File.join(Rails.root, "/app/assets/images/seed/#{filename}"))
+ end
+
 def getManyImages
   images = []
   for i in 1..10 do
