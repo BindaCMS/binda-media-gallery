@@ -46,16 +46,15 @@ class Medium extends React.Component {
         return (
             <StyledContainer>
                 <StyledTitle>{medium.name}</StyledTitle>
+                <div>
+                    <img src={medium.file_url} width={300} height={300}/>
+                </div>
                 <ul>
                     <li>
                         <div>
                             <strong>Description:</strong>
                             {' '}
                             {medium.description}
-                        </div>
-                        <div>
-                            <strong>File</strong>
-                            {medium.file}
                         </div>
                     </li>
                 </ul>
@@ -77,7 +76,8 @@ Medium.defaultProps = {
 function mapStateToProps(state, ownProps) {
     let medium = {
         name: '',
-        description: ''
+        description: '',
+        file_url: ''
     };
     const mediumId = ownProps.match.params.id;
     if (state.media.payload) {
