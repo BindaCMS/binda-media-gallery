@@ -4,7 +4,9 @@ import styled from 'styled-components'
 import TextInput from './common/TextInput'
 import FileDrop from './common/FileDrop';
 import {connect} from 'react-redux';
-import {DirectUpload} from 'activestorage'
+import {bindActionCreators} from "redux";
+import {addMediumAction} from "../actions/addMediumAction";
+import {editMediumAction} from "../actions/editMediumAction";
 
 const StyledTitle = styled.h2`
     font-size: 20px;
@@ -23,16 +25,8 @@ class MediumForm extends React.Component {
             medium: this.props.medium,
         }
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleDrop = this.handleDrop.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        // refs
-        this.fileInputRef = React.createRef();
-    }
-
-    handleDrop(event) {
-        event.preventDefault();
-        const files = event.dataTransfer.files;
-        Array.from(files).forEach(file => this.uploadFile(file))
+        this.formRef = React.createRef();
     }
 
     handleChange(event) {
@@ -43,20 +37,23 @@ class MediumForm extends React.Component {
         return this.setState({medium:medium})
     }
 
-    uploadFile(file) {
-
-    }
-
     handleSubmit(event) {
         event.preventDefault()
         let formData = new FormData();
-        for ( let key in this.state.medium ) {
-            let field = `medium[${key}]`
-            formData.append(field,  this.state.medium[key]);
-            console.log(field, this.state.medium[key])
+
+        if (this.formRef) {
+            const form = this.formRef.current;
+            let formNodes = form.querySelectorAll("input");
+            [...formNodes].forEach((input) => {
+                console.log(input)
+                formData.append(`medium[${input['name']}]`, input['value'])
+            })
         }
+
         // pass data to parent function
-        this.props.handleSave(formData)
+        const {mode, editMediumAction, addMediumAction} = this.props;
+        if      (mode === "edit") { editMediumAction(formData) }
+        else if (mode === "new")  { addMediumAction(formData)  }
     }
 
     render() {
@@ -64,9 +61,9 @@ class MediumForm extends React.Component {
             <div>
                 <StyledTitle>
                     {this.props.mode === "edit" ? "Edit" :
-                     this.props.mode === "new" ? "New": ""} Medium
+                     this.props.mode === "new" ? "New" : ""} Medium
                 </StyledTitle>
-                <form>
+                <form ref={this.formRef}>
                     <TextInput
                         name="name"
                         label="name"
@@ -79,11 +76,7 @@ class MediumForm extends React.Component {
                         placeholder="description"
                         value={this.state.medium.description}
                         onChange={this.handleChange} />
-                    <FileDrop
-                        ref={this.fileInputRef}
-                        handleDrop={this.handleDrop}
-                        name="file"
-                    />
+                    <FileDrop name="file"/>
                     <input
                         type="submit"
                         //disabled={this.props.saving}
@@ -96,7 +89,6 @@ class MediumForm extends React.Component {
 
 MediumForm.propTypes = {
     medium: PropTypes.shape(),
-    handleSave: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
@@ -114,4 +106,11 @@ function mapStateToProps(state, ownProps) {
     return { medium: medium }
 }
 
-export default connect(mapStateToProps)(MediumForm);
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        addMediumAction,
+        editMediumAction
+    }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MediumForm);
