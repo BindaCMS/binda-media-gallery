@@ -54,7 +54,6 @@ class FileDrop extends React.Component {
    }
 
    uploadFile(file) {
-      debugger
       const input = this.inputRef.current;
       const url = "/rails/active_storage/direct_uploads"
       const upload = new DirectUpload(file, url)
@@ -69,7 +68,7 @@ class FileDrop extends React.Component {
             const hiddenField = document.createElement('input')
             hiddenField.setAttribute("type", "hidden");
             hiddenField.setAttribute("value", blob.signed_id);
-            hiddenField.name = input.name;
+            hiddenField.name = this.props.name;
             input.closest('form').appendChild(hiddenField)
          }
       })
@@ -100,7 +99,7 @@ class FileDrop extends React.Component {
                         {...getInputProps({
                            onChange: this.props.onChange,
                            multiple: false,
-                           name: this.props.name,
+                           name: "dropzone_input",
                            ref:this.inputRef
                         })}
                      />
