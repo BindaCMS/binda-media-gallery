@@ -31,7 +31,7 @@ class Api::MediaController < ApplicationController
   end
 
   def update
-    medium = Medium.find(params['id'])
+    medium = Medium.find(medium_params['id'])
     medium.update(medium_params)
     respond_to do |format|
       format.json { render json: medium }
