@@ -41,13 +41,17 @@ class MediumForm extends React.Component {
         event.preventDefault()
         let formData = new FormData();
 
-        if (this.formRef) {
-            const form = this.formRef.current;
-            let formNodes = form.querySelectorAll("input");
-            [...formNodes].forEach((input) => {
-                console.log(input)
-                formData.append(`medium[${input['name']}]`, input['value'])
-            })
+        if (this.props.mode == "edit") {
+            formData.append('medium[id]', this.state.medium.id)
+        }
+        formData.append('medium[name]', this.state.medium.name);
+        formData.append('medium[description]', this.state.medium.description);
+
+        // Get file blob from form input
+        const form = this.formRef.current;
+        const fileInput = form.querySelector('input[name="file');
+        if (this.formRef && fileInput) {
+            formData.append('medium[file]', fileInput['value'])
         }
 
         // pass data to parent function
