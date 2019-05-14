@@ -16,11 +16,8 @@ class Api::MediaController < ApplicationController
   end
 
   def create
-    medium = Medium.create(medium_params);
-    medium.file.attach(medium_params[:file])
-    medium.save
     respond_to do |format|
-      format.json { render json: medium }
+      format.json { render json: Medium.create(medium_params) }
     end
   end
 
