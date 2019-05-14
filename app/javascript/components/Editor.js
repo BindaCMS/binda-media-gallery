@@ -48,10 +48,6 @@ class Editor extends React.Component {
         this.props.getMediaAction();
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        //console.log(this.props)
-    }
-
     renderNotice() {
         if (this.props.media.success) {
             return (
@@ -115,12 +111,13 @@ class Editor extends React.Component {
                             exact
                             path={"/media/new"}
                             component={MediumForm}
-                            onSave={this.props.addMediumAction} />
+                            action="create"
+                            handleSave={this.props.addMediumAction} />
                         <PropsRoute
                             path="/media/:id/edit"
                             component={MediumForm}
                             media={this.props.media.payload}
-                            onSave={this.props.editMediumAction} />
+                            handleSave={this.props.editMediumAction} />
                         <PropsRoute
                             exact
                             path="/media/:id"
