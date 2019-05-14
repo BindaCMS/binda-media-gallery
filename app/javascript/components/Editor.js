@@ -11,8 +11,6 @@ import Header from './Header'
 import PropsRoute from "./PropsRoute";
 import {getMediaAction} from '../actions/getMediaAction'
 import {deleteMediumAction} from "../actions/deleteMediumAction";
-import {addMediumAction} from "../actions/addMediumAction";
-import {editMediumAction} from "../actions/editMediumAction";
 
 const StyledContainer = styled.div`
     display: grid;
@@ -111,14 +109,12 @@ class Editor extends React.Component {
                             exact
                             path={"/media/new"}
                             component={MediumForm}
-                            mode="new"
-                            handleSave={this.props.addMediumAction} />
+                            mode="new" />
                         <PropsRoute
                             path="/media/:id/edit"
                             mode="edit"
                             component={MediumForm}
-                            media={this.props.media.payload}
-                            handleSave={this.props.editMediumAction} />
+                            media={this.props.media.payload} />
                         <PropsRoute
                             exact
                             path="/media/:id"
@@ -146,8 +142,6 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         getMediaAction,
         deleteMediumAction,
-        addMediumAction,
-        editMediumAction
     }, dispatch);
 }
 
