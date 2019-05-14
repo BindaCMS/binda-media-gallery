@@ -22,7 +22,7 @@ export function addMediumRequest(medium) {
         url: `http://localhost:3000/api/media`,
         method: 'POST',
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
             "Accept": 'application/json',
             'X-Requested-With': 'XMLHttpRequest'
         },
