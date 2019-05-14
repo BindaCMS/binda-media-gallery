@@ -73,3 +73,4 @@ gem 'responders'
 gem 'humanize'
 
 gem "actionpack", "~> 5.2"
+gem 'active_model_serializers'

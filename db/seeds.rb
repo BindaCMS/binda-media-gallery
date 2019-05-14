@@ -22,4 +22,4 @@ def getManyImages
   images
 end
 
-media = Medium.create(getManyImages)
+#Medium.create(getManyImages)
