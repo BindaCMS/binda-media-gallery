@@ -50,7 +50,8 @@ class FileDrop extends React.Component {
    }
 
    handleDrop(files) {
-      files.forEach(file => this.uploadFile(file))
+      this.setState({files})
+      this.state.files.forEach(file => this.uploadFile(file))
    }
 
    uploadFile(file) {
