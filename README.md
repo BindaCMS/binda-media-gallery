@@ -1,24 +1,18 @@
-# README
+# Binda API
+A Media Gallery for [Binda CMS](http://github.com/lacolonia/binda).
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**Binda** is a headless CMS with an intuitive out-of-the-box interface which makes very easy creating application infrastructures. For more info about Binda structure please visit the [official documentation](http://www.rubydoc.info/gems/binda)
 
-Things you may want to cover:
+## Work in progress
 
-* Ruby version
+Binda is based on Carrierwave and does not manage multiple instances of the same file.
 
-* System dependencies
+With this plugin we will undertake some major refactors:
 
-* Configuration
+1. Introducing [Active Storage](https://edgeguides.rubyonrails.org/active_storage_overview.html) which will replace Carrierwave entirely.
+2. Implementing a new feature based on React which will replace the current file upload field.
 
-* Database creation
 
-* Database initialization
+## Steps
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The direction is set, but there's much to be done before the top. Follow the conversation [here](https://github.com/BindaCMS/binda-media-gallery/projects/1).
